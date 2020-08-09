@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Model Detail{% endblock %}
+
+{% block content %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Framework</th>
+                <th>Model</th>
+                <th>Owner</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        {% for item in object_list.all %}
+        <tbody>
+            <tr>
+                <td>{{ item.task }}</td>
+                <td>{{ item.title }}</td>
+                <td>{{ item.description }}</td>
+                <td>{{ item.price }}</td>
+                <td>{{ item.framework }}</td>
+                <td>{{ item.model_file }}</td>
+                <td>{{ item.owner }}</td>
+                <td><a href="{% url 'mm:model_update' item.id %}">Update</a></td>
+                <td><a href="{% url 'mm:model_delete' item.id %}">Delete</a></td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
+{% endblock %}

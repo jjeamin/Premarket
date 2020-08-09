@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Premarket{% endblock %}
+
+{% block content %}
+    <form action="." method="POST" enctype="multipart/form-data">{% csrf_token %}
+        {% if form.errors%}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="alert alert-danger">
+                        <strong>{{ error|escape }}</strong>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+
+        <fieldset class="aligned">
+            <div class="form-group row">
+                {{ form.task|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+                <div class="col-sm-8">
+                    {{ form.task|add_class:"form-control" }}
+                </div>
+            </div>
+            
+            <div class="form-group row">
+                {{ form.title|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+                <div class="col-sm-8">
+                    {{ form.title|add_class:"form-control" }}
+                </div>
+            </div>
+
+            
+            <div class="form-group row">
+                {{ form.description|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+                <div class="col-sm-8">
+                    {{ form.description|add_class:"form-control" }}
+                </div>
+            </div>
+
+            
+            <div class="form-group row">
+                {{ form.price|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+                <div class="col-sm-8">
+                    {{ form.price|add_class:"form-control" }}
+                </div>
+            </div>
+
+            
+            <div class="form-group row">
+                {{ form.framework|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+                <div class="col-sm-8">
+                    {{ form.framework|add_class:"form-control" }}
+                </div>
+            </div>
+
+            
+            <div class="form-group row">
+                {{ form.model_file|add_label_class:"col-form-label col-sm-2 ml-3 font-weight-bold" }}
+                <div class="col-sm-8">
+                    {{ form.model_file|add_class:"form-control" }}
+                </div>
+            </div>
+        </fieldset>
+        
+        <div class="form-group">
+            <div class="offset-sm-2 col-sm-5">
+                <input type="submit" value="생성" class="btn btn-info"/>
+            </div>
+        </div>
+
+    </form>
+
+{% endblock %}

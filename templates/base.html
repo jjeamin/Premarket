@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <title>{% block title %}PreMarket{% endblock %}</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"/>
+    <style type="text/css">
+        @font-face { 
+            font-family: 'NanumBarunGothic'; font-style: normal; font-weight: 400; src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot'); src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWeb.ttf') format('truetype'); } @font-face { font-family: 'NanumBarunGothic'; font-style: normal; font-weight: 700; src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot'); src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebBold.ttf') format('truetype') } @font-face { font-family: 'NanumBarunGothic'; font-style: normal; font-weight: 300; src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot'); src: url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.eot?#iefix') format('embedded-opentype'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.woff') format('woff'), url('//cdn.jsdelivr.net/font-nanumlight/1.0/NanumBarunGothicWebLight.ttf') format('truetype'); } .nanumbarungothic * { font-family: 'NanumBarunGothic', sans-serif; }
+        </style>
+    {% block extra-style %}{% endblock %}
+</head>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-bottom: 30px;">
+    <a class="navbar-brand" href="{% url 'mm:index' %}">PreMarket</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Task</a>
+                <div class="dropdown-menu">
+                    {% for item in task_list %}
+                        <a class="dropdown-item" href="{% url 'mm:task_detail' item.id %}">{{ item.name }}</a>
+                    {% endfor %}
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle active" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Framework</a>
+                <div class="dropdown-menu">
+                    {% for item in framework_list %}
+                        <a class="dropdown-item" href="{% url 'mm:framework_detail' item.id %}">{{ item.name }}</a>
+                    {% endfor %}
+                </div>
+            </li>
+        </ul>
+
+        <ul class="navbar-nav navbar-right">
+            {% if user.is_active %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ user }}</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="{% url 'mm:model_create' %}">모델 추가</a>
+                    <a class="dropdown-item" href="{% url 'mm:model_change' %}">모델 수정</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class='nav-link' href="{% url 'logout' %}">로그아웃</a>
+            </li>
+            <li>
+                <a class='nav-link' href="{% url 'password_change' %}">비밀번호 변경</a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class='nav-link' href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span>로그인</a>
+            </li>
+            <li class="nav-item">
+                <a class='nav-link' href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span>회원가입</a>
+            </li>
+            {% endif %}
+        </ul>
+        
+    </div>
+</nav>
+
+<div class="container" style="font-family: NanumBarunGothic">
+    {% block content %}{% endblock %}
+</div>
+
+{% block footer %}{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://kit.fontawesome.com/c998a172fe.js"></script>
+
+{% block extra-script %}{% endblock %}
+</html>

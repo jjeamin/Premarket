@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+<script src="/static/js/main.js" type="text/javascript"></script>
+<script src="/static/css/main.css" type="text/style"></script>
+
+{% block title %}PreMarket{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+  <h1>PreMarket</h1>
+  <p>딥러닝 모델을 공유하는 사이트 입니다.</p>
+</div>
+
+<div class="row">
+    <div class="col-lg-3">
+        <h1 class="my-4">Task</h1>
+        <div class="list-group">
+        {% for item in task_list %}
+            <div class="clear_float">
+                <a href="{% url 'mm:task_detail' item.id %}" class="list-group-item">{{ item.name }}</a>
+            </div>
+        {% endfor %}
+        </div>
+
+        <h1 class="my-4">Framework</h1>
+        <div class="list-group">
+        {% for item in framework_list %}
+            <div class="clear_float">
+                <a href="{% url 'mm:framework_detail' item.id %}" class="list-group-item">{{ item.name }}</a>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    <div class="col-lg-9">
+      <div class="row">
+        {% for premodel in object_list %}
+          <div class="col col-xs-12 col-sm-12 col-md-4 col-lg-4 col-xl-4 card-container ng-star-inserted">
+              <div class="card mx-auto text-center" style="margin-top: 50px;">
+                  <div class="card-body">
+                      <a href="{{ premodel.get_absolute_url }}">
+                          <img src="https://semantic-ui.com/images/wireframe/image.png" class="card-img-top" style="cursor: pointer; object-fit: cover;">
+                      </a>
+                      <h5 class="card-title" style="margin-top: 10px;">{{ premodel.title }}</h5>
+                      <p class="card-text" style="margin-top: 10px;">{{ premodel.description }}</p>
+                      <a href="{{ premodel.get_absolute_url }}" class="btn btn-primary">View</a>
+                  </div>
+              </div>
+          </div>
+        {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

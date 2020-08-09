@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Model Detail{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-7">
+        <div>
+            <h5>상세 설명</h5>
+
+            {% if object.description %}<p>{{ object.description }}</p>
+            {% else %}<p> 상세 설명이 없습니다. </p> 
+            {% endif %}
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="container">
+            <h2>{{ object.title }}</h2>
+            
+            <div class="row" style="padding-top: 30px;">
+                <div class="col-md-8">Task Name</div>
+                <div class="col-6 col-md-4"><a href="{% url 'mm:task_detail' object.id %}">{{ object.task }}</a></div>
+            </div>
+
+            <div class="row" style="padding-top: 10px;">
+                <div class="col-md-8">가격</div>
+                <div class="col-6 col-md-4">
+                {% if object.price == 0 %} <p>무료</p>
+                {% else %} <p>{{ object.price }} 원</p>
+                {% endif %}
+                </div>
+            </div>
+
+            <div class="row" style="padding-top: 10px;">
+                <div class="col-md-8">프레임워크</div>
+                <div class="col-6 col-md-4"><a href="{% url 'mm:task_detail' object.id %}">{{ object.framework }}</a></div>
+            </div>
+
+            <div class="col align-self-center">
+                <a href="{{ object.model_file.url }}" class="btn btn-primary" download>Model Download</a>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-8">업로드 날짜</div>
+                <div class="col-6 col-md-10">{{ object.upload_date }}</div>
+            </div>
+
+            <div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
